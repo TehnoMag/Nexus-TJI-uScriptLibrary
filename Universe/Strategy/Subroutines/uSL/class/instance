@@ -1,0 +1,6 @@
+:action
+	
+	E.__INSTANCE__ := __instance;
+	this:localEvent(__ChangeInstance, E.ref:=P.ref);
+
+:end

@@ -1,0 +1,9 @@
+MACHINE "PRIVATE"
+
+STATE PRIVATE
+	RULE	event In
+		:action
+		
+		:end
+	
+	END

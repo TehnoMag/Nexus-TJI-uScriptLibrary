@@ -1,0 +1,5 @@
+:action
+
+	this:localEvent(__changeInstance, E.ref := P.__INSTANCE__);
+
+:end

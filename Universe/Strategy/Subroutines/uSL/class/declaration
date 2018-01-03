@@ -1,0 +1,87 @@
+STATE CLASS_CONSTRUCTOR
+
+	RULE	event In
+		:action
+
+			self := C.this;
+			this:changeState(CLASS, E.ref := P.instance);
+	
+		:end
+	END
+
+END
+
+STATE CLASS
+
+	RULE	event In
+		#include "uSL/function/private"
+		:action
+			this:localEvent(__changeInstance, E.ref := P.ref);
+			this:localEvent(__Constructor, 0);
+			this:localEvent(__var, E.flag:=#uSL_CLASS_SET);
+		:end
+	END
+	
+	RULE	event __changeInstance
+		:action
+			
+			E.class := this:localEvent(__instvar_get, E.id:=0);
+			
+			if (E.class=this, this:localEvent(__var, E.flag:=#uSL_CLASS_SET));
+			__instance := E.ref;
+			
+			E.class := this:localEvent(__instvar_get, E.id:=0);
+			
+			assert(E.class=this);
+			
+			this:localEvent(__var, E.flag:=#uSL_CLASS_GET);
+			
+		:end
+	END
+	
+	RULE	event __instvar
+		#include "uSL/function/private"
+		condition &E.flag
+		:action
+
+			E.result := 0;
+
+			chooseFirst
+			(
+				E.flag=#uSL_CLASS_SET, tihs:localEvent(__instvar_set, E.id := P.id; E.val := P.value),
+				E.flag=#uSL_CLASS_GET, E.result := this:localEvent(__instvar_get, E.id := P.id; E.val := P.value),
+				E.flag=#uSL_CLASS_SETGET, E.result := this:localEvent(__instvar_setget, E.id := P.id; E.val := P.value)
+			);
+			
+			Return(E.result);
+			
+		:end
+	END
+	
+	RULE	event __instvar_set
+		#include "uSL/function/private"
+		:action
+			
+			self:localEvent(Push, E.instance := C.__instance; E.id := P.id; E.val := P.val);
+			
+		:end
+	END
+	
+	RULE	event __instvar_get
+		#include "uSL/function/private"
+		:action
+		
+			Return(self:localEvent(Pull, E.instance := C.__instance; E.id := P.id));
+		
+		:end
+	END
+	
+	RULE	event __instvar_setget
+		#include "uSL/function/private"
+		:action
+
+			self:localEvent(Push, E.instance := C.__instance; E.id := P.id; E.val := P.val);
+			Return(self:localEvent(Pull, E.instance := C.__instance; E.id := P.id));
+			
+		:end
+	END

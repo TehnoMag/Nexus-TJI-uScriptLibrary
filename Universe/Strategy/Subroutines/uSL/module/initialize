@@ -1,0 +1,18 @@
+STATE	MODULE_INITIALIZE
+
+	RULE	event In
+			condition !__isInit
+		:action
+			
+			localEvent(onInitialize, 0);
+			__isInit := 1;
+			changeState(MODULE, 0);
+			
+		:end :else
+		
+			Debug("WARNING: uSL module already initialized");
+			changeState(MODULE, 0);
+		
+		:end
+	
+	END
