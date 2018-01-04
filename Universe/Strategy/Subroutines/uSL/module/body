@@ -1,2 +1,10 @@
 END
 STATE MODULE
+
+	RULE	event In
+		:action
+		
+			this:localEvent(PostInitialize);
+		
+		:end
+	END
