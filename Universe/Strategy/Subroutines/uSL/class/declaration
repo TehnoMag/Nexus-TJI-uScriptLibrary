@@ -35,7 +35,7 @@ STATE NEW //New instance constructor (Before instance)
 			__instance := 0;
 						
 			//AllocatePull
-			U.uSL.Class:localEvent(AllocateClass);
+			U.uSL.Class:localEvent(AllocatePull);
 		
 		:end
 	END
