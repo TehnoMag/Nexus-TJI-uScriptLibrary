@@ -20,6 +20,18 @@ RULE	event __Debug_isNotClass
 	:end
 END
 
+RULE	event __Debug_isKnownuType
+	#include "uSL/function/private"
+	:action
+	
+		E.debug := sCat("Class ", E.class:Name());
+		Debug(E.debug);
+		Debug("	uType already known");
+	
+	:end
+END
+
+
 RULE	event __Debug_Registred
 	#include "uSL/function/private"
 	:action

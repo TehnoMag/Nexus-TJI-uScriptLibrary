@@ -34,8 +34,8 @@ STATE NEW //New instance constructor (Before instance)
 			__Owner_ref := 0;
 			__instance := 0;
 						
-			//AllocatePull
-			U.uSL.Class:localEvent(AllocatePull);
+			//Allocate variables stack
+			U.uSL.Class:localEvent(AllocateVarStack);
 		
 		:end
 	END
