@@ -1,0 +1,17 @@
+MACHINE "ClassManager"
+
+	STATE Initialize
+	
+		RULE	event In
+			:action
+			
+			:end
+		END
+	
+	END
+	
+	STATE Worker
+	
+	END
+
+END
