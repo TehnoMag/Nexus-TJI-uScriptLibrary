@@ -1,0 +1,3 @@
+:action
+	self:self := this;
+:end
